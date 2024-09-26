@@ -15,7 +15,12 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WordCount extends Configured implements Tool {
+
+	private static final Logger LOGGER = LogManager.getLogger(WordCount.class.getName());
 
 	/**
 	 * 

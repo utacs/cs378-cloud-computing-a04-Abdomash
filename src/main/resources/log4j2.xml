@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Properties>
+    <Property name="basePath">logs</Property>
+    <Property name="pattern">[%d{HH:mm:ss zzz}] [%level] [%logger{0}.java:%03line] %msg%n</Property>
+  </Properties>
+  <Appenders>
+    <Console name="Console">
+      <PatternLayout pattern="${pattern}"/>
+    </Console>
+    <File name="FileAppender" fileName="${basePath}/Main.log">
+      <Append value="false"/>
+      <PatternLayout pattern="${pattern}"/>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Root level="trace">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="FileAppender"/>
+    </Root>
+  </Loggers>
+</Configuration>

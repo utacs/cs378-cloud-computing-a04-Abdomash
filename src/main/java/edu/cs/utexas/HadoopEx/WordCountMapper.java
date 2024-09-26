@@ -6,8 +6,12 @@ import java.util.StringTokenizer;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class WordCountMapper extends Mapper<Object, Text, Text, IntWritable> {
+
+	private static final Logger LOGGER = LogManager.getLogger(WordCount.class.getName());
 
 	// Create a counter and initialize with 1
 	private final IntWritable counter = new IntWritable(1);
