@@ -13,6 +13,8 @@ buildNumber.properties
 output
 logs
 Makefile
+temp
 
 # Datasets
 taxi-*
+google-cloud-sdk
