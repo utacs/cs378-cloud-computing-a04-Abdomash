@@ -6,7 +6,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -50,7 +49,7 @@ public class WordCount extends Configured implements Tool {
 			job.setReducerClass(WordCountReducer.class);
 
 			// specify output types
-			job.setOutputKeyClass(Text.class);
+			job.setOutputKeyClass(IntWritable.class);
 			job.setOutputValueClass(IntWritable.class);
 
 			// specify input and output directories
@@ -63,8 +62,7 @@ public class WordCount extends Configured implements Tool {
 			return (job.waitForCompletion(true) ? 0 : 1);
 
 		} catch (InterruptedException | ClassNotFoundException | IOException e) {
-			System.err.println("Error during mapreduce job.");
-			e.printStackTrace();
+			LOGGER.error("Error during mapreduce job.", e);
 			return 2;
 		}
 	}
