@@ -17,32 +17,33 @@
 The code for this task can be found in the `task-1` branch in my code repo.
 
 Here are the results (and can also be found in `task-1-results.txt`):
+(I sorted these lines manually)
 
 ```
-1	1739
-2	1368
-3	1081
-4	869
-5	812
-6	675
-7	1576
-8	2676
-9	2898
-10	2787
-11	2773
-12	3044
-13	2982
-14	2832
-15	2869
-16	2868
-17	3036
-18	3378
-19	3931
-20	3860
-21	3290
-22	3015
-23	2874
-24	2162
+1       197787
+2       149205
+3       113109
+4       85731
+5       63409
+6       50492
+7       104405
+8       179262
+9       218326
+10      228540
+11      221861
+12      227322
+13      241283
+14      239548
+15      249273
+16      246005
+17      212890
+18      242402
+19      302299
+20      315883
+21      294776
+22      289992
+23      278228
+24      246378
 ```
 
 ## Task 2:
@@ -53,10 +54,10 @@ Here are the results (and can also be found in `task-2-results.txt`):
 
 ```
 00005007A9F30E289E760362F69E4EAD	1.0
-00153E36140C5B2A84EA308F355A7925	1.0
-0035520A854E4F2769B37DAF5357426F	1.0
-FFF010F904EF7B60DAF12560AFE5127C	1.0
-FFFECF75AB6CC4FF9E8A8B633AB81C26	1.0
+0004688E04E043CBD108E1A560BB6D68	1.0
+001D3B86C2ACDEE4D1B98AFE52969F3D	1.0
+010CFFF37C390AB7DB196B83DB225BB8	1.0
+04D0035791B61BF046D0263EBA5EE34C	1.0
 ```
 
 ## Task 3:
@@ -77,6 +78,24 @@ E9DA1D289A7E321CC179C51C0C526A73	231.29999
 FA587EC2731AAB9F2952622E89088D4B	179.99998
 FD2AE1C5F9F5FBE73A6D6D3D33270571	4094.9998
 ```
+
+## Screenshots
+
+### Task 1
+
+![alt text](task-1-done.png)
+![alt text](task-1-results.png)
+
+### Task 2
+
+![alt text](task-2-done-1.png)
+![alt text](task-2-done-2.png)
+![alt text](task-2-results.png)
+
+### Task 3
+
+![alt text](task-3-done-1.png)
+![alt text](task-3-done-2.png)
 
 # Project Template
 
