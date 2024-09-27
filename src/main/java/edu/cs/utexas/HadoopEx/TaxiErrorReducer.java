@@ -10,16 +10,18 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TaxiErrorReducer extends  Reducer<Text, BooleanWritable, Text, Text> {
-    private static final Logger LOGGER = LogManager.getLogger(TaxiErrorReducer.class.getName());
+public class TaxiErrorReducer extends  Reducer<Text, Text, Text, Text> {
+     private static final Logger LOGGER = LogManager.getLogger(TaxiErrorReducer.class.getName());
     
-    public void reduce(Text key, Iterable<BooleanWritable> values, Context context) throws IOException, InterruptedException {
-          int valid = 0;
-          int invalid = 0;
-          for (BooleanWritable value : values) {
-        	  if (value.get()) valid++;
-        	  else invalid++;
+     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+          float totalAmount = 0;
+          float totalTripDuration = 0;     
+     
+          for (Text value : values) {               
+               String[] columns = value.toString().split("\t");
+               totalAmount += Float.parseFloat(columns[0]);
+               totalTripDuration += Float.parseFloat(columns[1]);
           }
-          context.write(key, new Text(valid + "\t" + invalid));
+          context.write(key, new Text(totalAmount + "\t" + totalTripDuration));
      }
 }

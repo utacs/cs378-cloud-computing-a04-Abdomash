@@ -46,7 +46,7 @@ public class TaxiErrorDriver extends Configured implements Tool {
 			job1.setMapperClass(TaxiErrorMapper.class);
 			job1.setReducerClass(TaxiErrorReducer.class);
 			job1.setOutputKeyClass(Text.class);
-			job1.setOutputValueClass(BooleanWritable.class);
+			job1.setOutputValueClass(Text.class);
 			FileInputFormat.addInputPath(job1, new Path(args[0]));
 			job1.setInputFormatClass(TextInputFormat.class);
 			FileOutputFormat.setOutputPath(job1, new Path("temp"));

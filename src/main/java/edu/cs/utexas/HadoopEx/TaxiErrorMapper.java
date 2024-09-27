@@ -9,12 +9,12 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TaxiErrorMapper extends Mapper<Object, Text, Text, BooleanWritable> {
+public class TaxiErrorMapper extends Mapper<Object, Text, Text, Text> {
 	private static final Logger LOGGER = LogManager.getLogger(TaxiErrorMapper.class.getName());
 
 	// Constants to parse the input file
 	private static final int   NUM_COLUMNS = 17;
-	private static final int   TAXI_ID_INDEX = 0;
+	private static final int   DRIVER_ID_INDEX = 1;
 	private static final int   PICKUP_DATE_INDEX = 2;
 	private static final int   DROPOFF_DATE_INDEX = 3;
 	private static final int   TRIP_DURATION_INDEX = 4;
@@ -25,19 +25,17 @@ public class TaxiErrorMapper extends Mapper<Object, Text, Text, BooleanWritable>
 	private static final int[] NUMERIC_COLUMNS = { 11, 12, 13, 14, 15 };
 	private static final int   TOTAL_AMOUNT_INDEX = 16;
 	private static final float FLT_EPSILON = 0.001f;
-	private static final int   TAXI_ID_LENGTH = 32;
+	private static final int   DRIVER_ID_LENGTH = 32;
 	private static final int   NUM_HOURS = 24;
 
 	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		String[] columns = value.toString().split(",");
 		if (!isValidLine(columns)) return;
 		Text taxiID = new Text();
-		taxiID.set(columns[TAXI_ID_INDEX].trim());
-
-		boolean isValidPickupLocation = validateLocation(columns[PICKUP_LAT_INDEX], columns[PICKUP_LONG_INDEX]);
-		boolean isValidDropoffLocation = validateLocation(columns[DROPOFF_LAT_INDEX], columns[DROPOFF_LONG_INDEX]);
-		BooleanWritable isValidGPS = new BooleanWritable(isValidPickupLocation && isValidDropoffLocation);
-		context.write(taxiID, isValidGPS);
+		float totalAmount = Float.parseFloat(columns[TOTAL_AMOUNT_INDEX]);
+		float tripDuration = Float.parseFloat(columns[TRIP_DURATION_INDEX]) / 60; // in seconds
+		taxiID.set(columns[DRIVER_ID_INDEX].trim());
+		context.write(taxiID, new Text(totalAmount + "\t" + tripDuration));
 	}
 	
 	public boolean isValidLine(String[] columns) {
@@ -46,8 +44,8 @@ public class TaxiErrorMapper extends Mapper<Object, Text, Text, BooleanWritable>
 			return false;
 		}
 
-		if (columns[TAXI_ID_INDEX].length() != TAXI_ID_LENGTH) {
-			LOGGER.error("Invalid taxi ID: " + columns[TAXI_ID_INDEX]);
+		if (columns[DRIVER_ID_INDEX].length() != DRIVER_ID_LENGTH) {
+			LOGGER.error("Invalid taxi ID: " + columns[DRIVER_ID_INDEX]);
 			return false;
 		}
 
@@ -65,6 +63,9 @@ public class TaxiErrorMapper extends Mapper<Object, Text, Text, BooleanWritable>
 			LOGGER.error("Invalid total amount: " + columns[TOTAL_AMOUNT_INDEX]);
 			return false;
 		}
+
+		// boolean isValidPickupLocation = validateLocation(columns[PICKUP_LAT_INDEX], columns[PICKUP_LONG_INDEX]);
+		// boolean isValidDropoffLocation = validateLocation(columns[DROPOFF_LAT_INDEX], columns[DROPOFF_LONG_INDEX]);
 
 		return true;
 	}

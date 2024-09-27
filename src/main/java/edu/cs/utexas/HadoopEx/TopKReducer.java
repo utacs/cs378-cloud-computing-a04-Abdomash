@@ -15,7 +15,7 @@ import edu.cs.utexas.HadoopEx.TopKTaxiMap.Entry;
 public class TopKReducer extends  Reducer<Text, Text, Text, FloatWritable> {
      private static final Logger LOGGER = LogManager.getLogger(TaxiErrorReducer.class.getName());
      
-     private static final int K = 5;
+     private static final int K = 10;
      private TopKTaxiMap topK = new TopKTaxiMap(K);
 
      public void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
