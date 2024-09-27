@@ -58,6 +58,7 @@ public class TaxiErrorDriver extends Configured implements Tool {
 
 			Job job2 = new Job(conf, "Taxi-Error-Second");
 			job2.setJarByClass(TaxiErrorDriver.class);
+			job2.setNumReduceTasks(1);
 			job2.setMapperClass(TopKMapper.class);
 			job2.setReducerClass(TopKReducer.class);
 			job2.setOutputKeyClass(Text.class);
@@ -66,7 +67,6 @@ public class TaxiErrorDriver extends Configured implements Tool {
 			job2.setInputFormatClass(TextInputFormat.class);
 			FileOutputFormat.setOutputPath(job2, new Path(args[1]));
 			job2.setOutputFormatClass(TextOutputFormat.class);
-			job2.setNumReduceTasks(1);
 
 			if (!job2.waitForCompletion(true)) {
 				return 1;
